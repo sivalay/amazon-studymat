@@ -1,4 +1,5 @@
-// import {cart} from
+import {cart, addToCart} from '../data/cart.js'
+import { products } from '../data/products.js'
 
 
 const productsGrid = document.querySelector('.products-grid')
@@ -59,31 +60,21 @@ products.forEach((product) => {
 
 productsGrid.innerHTML = productsHtml
 
+function updateQuantity(){
+  let cartQuantity = 0
+  cart.forEach((cartItem) => {
+    cartQuantity += cartItem.quantity
+  })
+  document.querySelector('.cart-quantity').innerHTML = cartQuantity
+  console.log(cartQuantity)
+  console.log(cart)
+}
 
 document.querySelectorAll('.js-add-to-cart').forEach((button) => {
     button.addEventListener('click', () => {
         const productId = button.dataset.productId
-        let matchItem
-        cart.forEach((item) => {
-            if(productId === item.productId){
-                matchItem = item
-            }
-        })
-        if(matchItem){
-          matchItem.quantity +=1
-        } else{
-            cart.push({
-                productId,
-                quantity : 1
-            })
-        }
-
-        let cartQuantity = 0
-        cart.forEach((item) => {
-          cartQuantity += item.quantity
-        })
-        document.querySelector('.cart-quantity').innerHTML = cartQuantity
-        console.log(cartQuantity)
-        console.log(cart)
+        addToCart(productId)
+        updateQuantity()
+        
     })
 })
