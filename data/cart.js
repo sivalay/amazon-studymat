@@ -1,6 +1,6 @@
 
 export let cart = JSON.parse(localStorage.getItem('cart'))
-if(! cart){
+if (!cart){
     cart = [{
             productId : 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
             quantity : 2,
@@ -47,6 +47,18 @@ export function addToCart(productId){
         }
     })
     cart = newCart
+
+    saveToStorage()
+  }
+
+  export function updateDeliveryOption(productId, deliveryOptionId){
+    let matchItem
+    cart.forEach((cartItem) => {
+        if(productId === cartItem.productId){
+            matchItem = cartItem
+        }
+    })
+    matchItem.deliveryOptionId = deliveryOptionId
 
     saveToStorage()
   }
