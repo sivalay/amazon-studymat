@@ -7,20 +7,38 @@ import { loadCart } from "../data/cart.js";
 // import '../data/backend-practice.js'
 
 
-Promise.all([
-    loadProductsFetch(),
-    new Promise((resolve) => {
+async function loadPage(){
+    await loadProductsFetch()
+
+    await new Promise((resolve) => {
         loadCart(() => {
             resolve();
         });
         
     })
-]).then((values) => {
-    console.log(values)
+
     renderOrderSummary();
     renderPaymentSummary();
-});
+}
+loadPage()
 
+
+// -----promise.all()-------
+// Promise.all([
+//     loadProductsFetch(),
+//     new Promise((resolve) => {
+//         loadCart(() => {
+//             resolve();
+//         });
+        
+//     })
+// ]).then((values) => {
+//     console.log(values)
+//     renderOrderSummary();
+//     renderPaymentSummary();
+// });
+
+// ------promise-------
 // new Promise((resolve) => {
 //     loadProducts(() => {
 //         resolve('value1')
