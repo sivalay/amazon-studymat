@@ -64,8 +64,6 @@ class Product{
 // console.log(fun.method())
 // ------------
 
-
-// --------------We can use the http response here, to get the data from the backends-------------
 class Clothing extends Product{
   sizeChartLink
 
@@ -80,6 +78,25 @@ class Clothing extends Product{
 }
 
 export let products = []
+
+export function loadProductsFetch(){
+  let promise = fetch('https://supersimplebackend.dev/products').then((response) => {
+    return response.json()
+  }).then((productData) => {
+    products = productData.map((productDetails) => {
+      if (productDetails.type === 'clothing'){
+        return new Clothing(productDetails)
+      }
+      return new Product(productDetails)
+    })
+    console.log('load Products')
+  })
+  return promise
+}
+
+// loadProductsFetch().then(() => {
+//   console.log('next step')
+// })
 
 export function loadProducts(fun){
   const xhr = new XMLHttpRequest()
