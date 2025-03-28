@@ -72,8 +72,8 @@ function renderProductsGrid(){
       cartQuantity += cartItem.quantity
     })
     document.querySelector('.cart-quantity').innerHTML = cartQuantity
-    console.log(cartQuantity)
-    console.log(cart)
+    // console.log(cartQuantity)
+    // console.log(cart)
   }
 
   document.querySelectorAll('.js-add-to-cart').forEach((button) => {
@@ -81,7 +81,6 @@ function renderProductsGrid(){
           const productId = button.dataset.productId
           addToCart(productId)
           updateQuantity()
-          
       })
   })
 }
